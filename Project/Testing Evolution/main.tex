@@ -1,0 +1,278 @@
+\documentclass{scrreprt}
+
+\usepackage{textcomp}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+
+
+\setlength{\oddsidemargin}{0.25in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{0in}
+\setlength{\textheight}{8.5in}
+
+
+\usepackage{listings}
+\usepackage{underscore}
+\usepackage{graphicx}
+\usepackage[bookmarks=true]{hyperref}
+\hypersetup{
+    bookmarks=false,    % show bookmarks bar?
+    pdftitle={SOFTWARE TESTING \& EVOLUTION},    % title
+    pdfauthor={Noymul Islam Chowdhury \& Asif Mohaimen},                     % author
+    pdfsubject={SOFTWARE TESTING \& EVOLUTION},                        % subject of the document
+    pdfkeywords={TeX, LaTeX, graphics, images}, % list of keywords
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=blue,       % color of internal links
+    citecolor=black,       % color of links to bibliography
+    filecolor=black,        % color of file links
+    urlcolor=purple,        % color of external links
+    linktoc=page            % only page is linked
+}%
+\def\myversion{1.0 }
+\title{%
+\flushright
+\rule{16cm}{5pt}\vskip1cm
+\Huge{SOFTWARE TESTING \& EVOLUTION}\\
+\vspace{2cm}
+for\\
+\vspace{2cm}
+BD Knowledge Network\\
+\vspace{2cm}
+\LARGE{Release 1.0\\}
+\vspace{4cm}
+Prepared by Team A\\
+\vfill
+\rule{16cm}{5pt}
+}
+\date{}
+\usepackage{hyperref}
+\begin{document}
+\rhead{Team A}
+\lhead{Testing \& Evolution}
+\cfoot{\thepage}
+\maketitle
+\tableofcontents
+\chapter*{Preface}
+We have used the three following strategies to test our demo software. They are: 
+\begin{itemize}
+\item Unit Testing
+\item Component Testing
+\item System Testing
+\end{itemize}
+
+\emph{Unit testing} is a software development process in which the smallest testable parts of an application, called units, are individually and independently scrutinized for proper operation. \emph{Component testing} is also known as module and program testing. It finds the defects in the module and verifies the functioning of software. \emph{System testing} of software or hardware is testing conducted on a complete, integrated system to evaluate the system's compliance with its specified requirements.
+
+We will try to emphasize on these things in detail.
+\chapter{Unit Testing}
+\section{Login System Testing}
+As an example we will show how we handle the log in validation part of our project. This Userverification  method will take the username \& password of the user from the user login form as shown in figure~\ref{login} and will fetch the corresponding password for that very user from the userinfo table located in our mysql database server. Then it will compare the password string provided by the user trying to login to the system. If the strings matches then the user will be able to get access to his account and this will be determined by the boolean variable \emph{entry}. If it is present then the user is already registered and she/he is allowed to login otherwise not. If he is clear to login he will be redirected to his homepage or dashboard where he will be able to see the other stuffs and if the \emph{entry} variable becomes false he will be redirected into the login page. Where he will be prompted to give the username \& password again like it is shown in the figure~\ref{loginfail}. The UML Sequence Diagram for this activity is shown in figure~\ref{test}.
+\begin{figure}[h]
+\begin{center}
+\resizebox{3in}{!}{\includegraphics*{./img/login.png}}
+\end{center} 
+\caption{Log-in page for BD Knowledge Network\label{login}}
+\end{figure}
+\begin{figure}[h]
+\begin{center}
+\resizebox{3in}{!}{\includegraphics*{./img/loginfail.png}}
+\end{center} 
+\caption{Redirected false login page for BD Knowledge Network\label{loginfail}}
+\end{figure}
+\begin{figure}[h]
+\begin{center}
+\resizebox{6in}{!}{\includegraphics*{./img/test.jpg}}
+\end{center} 
+\caption{UML Sequence Diagram for Login System\label{test}}
+\end{figure}
+\begin{verbatim}
+public boolean UserVerification(String username, String password)
+{
+    boolean entry=false;
+	try{
+		Statement st = conn.createStatement();
+		ResultSet rs = st.executeQuery("select password from userinfo 
+        where username = '"+username+''');
+		while(rs.next())
+		{
+			String name=rs.getString("username");
+			String pass=rs.getString("password");
+			if(name.equals(username)&&pass.equals(password))
+			{
+				entry=true;
+				return entry;
+			}
+		}    
+		return entry;
+	}
+}
+\end{verbatim}
+
+There will be a table in the database for keeping our user login information. It is shown in Table ~\ref{userinfo}. It has two columns to store the values. They are the username \& the password. which will be used to store the username \& passwords for corresponding users. This is how it works.
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|lll}
+\cline{1-2}
+\multicolumn{1}{|c|}{\textbf{\begin{tabular}[c]{@{}c@{}}username\\ varchar(100)\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}password\\ varchar(100)\end{tabular}}} &  &  &  \\ \cline{1-2}
+saumiko & 12345 &  &  &  \\ \cline{1-2}
+shoroth & 67890 &  &  &  \\ \cline{1-2}
+rafi & 1234567890 &  &  &  \\ \cline{1-2}
+\end{tabular}
+\caption{userinfo}
+\label{userinfo}
+\end{table}
+
+\chapter{Component Testing}
+\section{Validation}
+As an example we will test our sign-up component to see if it is functional or buggy. We will take some information from the user such as \emph{Name, E-mail, Phone No. \& Institution} when they are trying to create a new account in our system. They have to fill all the required fields of our information form. If there is any blank field then they will see an alert message.\footnote{This will also be applicable for any kind of false information. The field will be highlighted and prompt the user to give the correct info. Shown in Figire~\ref{}} The overall front-end code is given bellow:
+
+\begin{verbatim}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link   href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/bootstrap.min.js"></script>
+    <title>Register</title>
+    <link rel="shortcut icon" href="favicon.png" type="image/png">
+</head>
+ 
+<body>
+    <style>
+        body{
+            background-color: #3498DB;
+        }
+    </style>
+    <div class="container">
+        
+                <div class="span10 offset1">
+                    <div class="row">
+                        <h3>Sign Up For BD Knowldge Network</h3>
+                    </div>
+                    <style>
+                        .container {
+                            background-color: #FFFFFF;
+                        }
+                    </style>
+                    <form class="form-horizontal" action="signupservlet" method="GET">
+                      <div class="control-group">
+                        <label class="control-label">Full Name</label>
+                        <div class="controls">
+                            <input name="name" required="required" type="text"  
+                            placeholder="Name">
+                            <span class="help-inline"></span>
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label">E-mail</label>
+                        <div class="controls">
+                            <input name="mail" required="required" 
+                            type="email" placeholder="someone@example.com">
+                                <span class="help-inline"></span>
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label">Phone No.</label>
+                        <div class="controls">
+                            <input name="phone" required="required" type="text" 
+                            placeholder="+8801*********">
+                                <span class="help-inline"></span>
+                        </div>
+                </div>
+                <div class="control-group">
+                <!-- 
+                    This section will display a list of the registered institutions only.
+                    We'll do the others section later. 
+                -->
+                <label class="control-label">Institution</label>
+                <div class="controls">
+                    <select name="blood">
+                        <option value="A+">SUST</option>
+                        <option value="A-">BUET</option>
+                        <option value="B+">RUET</option>
+                        <option value="B-">KUET</option>
+                        <option value="O+">CUET</option>
+                        <option value="O-">DU</option>
+                        <option value="AB+">JU</option>
+                    </select>
+                    <span class="help-inline"></span>
+                </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="yobro">Sign Up</button>
+                    <style>
+                        .yobro {
+                            text-align: center;
+                            border: 2px solid transparent;
+                            background: #3498DB;
+                            color: #ffffff;
+                            font-size: 16px;
+                            line-height: 25px;
+                            padding: 10px 0;
+                            text-decoration: none;
+                            text-shadow: none;
+                            border-radius: 3px;
+                            box-shadow: none;
+                            transition: 0.25s;
+                            display: block;
+                            width: 100px;
+                            margin: 0 auto;
+                        }
+                        .yobro:hover {
+                          background-color: #2980B9;
+                        }
+                    </style>
+                </div>
+            </form>
+        </div>  
+    </div>
+  </body>
+</html>
+\end{verbatim}
+
+In an HTML \big(Hyper Text Markup Language\big) form there are some fields which should be filled by the user. When s/he submit the form, before creating a new account we should check if s/he have given all required information or not. For that we have used the required option for HTML form attribute. Thus we've ensured the user won't miss any information. For E-mail validation we have used the e-mail option for text input in HTML 5 for primary verification and in the sign-up servlet we have checked if it is his/her institutional e-mail or not. We haven't included that part in this code and only registered institutes will be displayed in the institute list. We have used the google's mail API to complete the e-mail verification. For the page style we have used bootstrap to keep it simple. The page will look like it is shown in the figure~\ref{Signup}. We have verified the teacher/student account \& premium or normal account like payment stuffs in the forwarded page.
+\begin{figure}[h]
+\begin{center}
+\resizebox{6in}{!}{\includegraphics*{./img/Signup.png}}
+\end{center} 
+\caption{Signup page for BD Knowledge Network\label{Signup}}
+\end{figure}
+\begin{figure}[h]
+\begin{center}
+\resizebox{6in}{!}{\includegraphics*{./img/False.png}}
+\end{center} 
+\caption{Signup with false information page for BD Knowledge Network\label{Signup}}
+\end{figure}
+\chapter{System testing}
+To check if our system is working fine or not we have checked all the requirements of the overall system.  We did the followings step by step.
+\begin{itemize}
+\item{SignUp:} We tested the signup feature by creating some dummy accounts.
+\item{Login:} After creating  new accounts we tested if we could login using those registered accounts.
+\item{Search:} We ensured that user can search for any public project easily.
+\item{Descriptions:} For each project user can read its description to have a abstract idea about the project.
+\item{Upload:} We tested if the user can upload his/her own projects.
+\item{Download:} We made sure that user can download any public project from our system.
+\item{Rating:} We ensured that based on the descriptions of the projects, user can rate them.
+\item{Security encryption:} We have checked the SSL certificate to ensure a secured connection of the user to our server. Thus any types of data leakage will be prohibited.
+\item{Secure payment through gateways:} We have used some payment gateways for premium accounts in our project. Thus we have made secure connection with two of the very famous payment gateways in Bangladesh. They are Bkash \& DBBL Nexus. As for now it is a national project we have tried to ensure the secure payment option for the special features. We have tested them several times to ensure the perfection of this payment system.
+\item{Password reset:} We have used google's mail API for the password \& other information resetting notifier to the institutional e-mail account and to verify the actual user we have used the SMS code sending system to the user's mobile to see if s/he is the actual user trying to make some changes. For that we have used the Twilio rest API. Have checked this feature several times to ensure the perfect satisfaction of the user.
+\item{Intellectual Property Rights:} We have tried to ensure the IPR for the private projects of an user or institution. But there is a feature for them to upload an abstract of that project which has been tested several times to identify any types of security flaws.
+
+\end{itemize}
+\chapter{Software Evolution}
+No software is permanent. We always need to change or add new functionality to our system to cope with the current trend. For this reason we have structured our code in such manner that it will be easy for us to update our system. We tried to avoid following bad smells from our system.
+\begin{itemize}
+\item{Typos:} We have tried to use variable names with a proper meaning to ensure the code readability for further evolution. Thus the legacy teams will be able to understand our codes very easily \& that will accelerate the evolution process.
+\item{Indentation:} We have tried to ensure proper indentation for the whole code base of our project to ensure a nice clean look of the project.
+\item{Duplicate code:} We planned to structure our code in some modules.We swept away all the possibilities of using duplicate codes in our system. As we are using object-oriented language, we modeled each component as an object and used it when needed.
+\item{Long method:} We avoided using long methods. Perhaps we used small methods so that it becomes easy to read for the third party.
+\item{Switch case:} In our coding we tried to use switch cases as less as possible.
+\item{Data Clumping:} Data clumping means that the same data item may be
+accessed from different parts of the code at multiple places. So many places
+there might be the exactly same lines of code over and over again. We have
+tried to bind these accesses into some fixed class. For accessing data items
+we basically only use the DAO class objects. So all of the DAO class objects
+are in the same place. So it becomes easy for the programmer to read the
+code. Basically what we have done here is we have initiated some interfaces and implemented them right when we needed them. Thus we have avoided the redundancy in accessing the database.
+\end{itemize}
+\end{document}

@@ -1,2 +1,2 @@
-# SEandTechnicalWriting
-This repository is to store the assignments of Software Engineering &amp; Technical Writing course. This course is being taken by Abdullah Al Mumin Sir.
+# Sotware Engineering Lab Codes
+I have used this repository to store the `LaTeX` codes for my software engineering lab assignments. In the `Project` folder Codes are written for the building phases of our intended project and in the `Summary` folder codes are written to keep the summaries of the named chapters from the [Software Engineering](http://www.software-engin.com) book by [Ian Sommerville](http://www.software-engin.com/home/personal).

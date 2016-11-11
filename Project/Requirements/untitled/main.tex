@@ -1,0 +1,151 @@
+\documentclass{scrreprt}
+
+\usepackage{textcomp}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+
+
+\setlength{\oddsidemargin}{0.25in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{0in}
+\setlength{\textheight}{8.5in}
+
+
+\usepackage{listings}
+\usepackage{underscore}
+\usepackage{graphicx}
+\usepackage[bookmarks=true]{hyperref}
+\hypersetup{
+    bookmarks=false,    % show bookmarks bar?
+    pdftitle={Software Requirement Specification},    % title
+    pdfauthor={Noymul Islam Chowdhury \& Asif Mohaimen},                     % author
+    pdfsubject={Software Requierements Document},                        % subject of the document
+    pdfkeywords={TeX, LaTeX, graphics, images}, % list of keywords
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=blue,       % color of internal links
+    citecolor=black,       % color of links to bibliography
+    filecolor=black,        % color of file links
+    urlcolor=purple,        % color of external links
+    linktoc=page            % only page is linked
+}%
+\def\myversion{1.0 }
+\title{%
+\flushright
+\rule{16cm}{5pt}\vskip1cm
+\Huge{SOFTWARE REQUIREMENTS\\ SPECIFICATION}\\
+\vspace{2cm}
+for\\
+\vspace{2cm}
+BD Knowldege Netwrok\\
+\vspace{2cm}
+\LARGE{Release 1.0\\}
+\vspace{4cm}
+Prepared by Team A\\
+\vfill
+\rule{16cm}{5pt}
+}
+\date{}
+\usepackage{hyperref}
+\begin{document}
+\rhead{Team A}
+\lhead{Requirements Engineering}
+\cfoot{\thepage}
+\maketitle
+\tableofcontents
+\chapter*{Preface}
+“BD Knowledge Network”  is a service  for teachers and students of different universities of  Bangladesh where  they  can  upload  there projects, research papers etc. also they can search for particular projects and research works for using it in there personal product.\\\\
+This preface will split into following chapters:\\
+\begin{itemize}
+\item \textbf{Introduction:}  The purpose of the application.
+\item \textbf{Glossary:} The technical terms in this document.
+\item \textbf{User requirements definition:} Description of the services provided for the user.
+\item \textbf{System architecture:} Presentation on the overview of the anticipated system architecture.
+\item \textbf{System requirements specification:}  The detail functional and nonfunctional requirements.
+\item \textbf{System models:} Graphical system models to show the relationships between the system components, the system and its environment.
+\item \textbf{System evolution:} The fundamental assumptions on which the system is based, and any anticipated changes due to hardware evolution, changing user needs etc.
+\item \textbf{Appendices:} Detailed, specific information that is related to the application being developed.
+\end{itemize}
+\chapter{Introduction}
+This system is needed for the collection of all projects and research works done or going to be done in different universities of Bangladesh by teachers and students which was previously impossible. This system gives the opportunity to upload or download any project or research work, give personal opinion about the projects and research work.
+
+\section{Purpose}
+This project is much needed to connect the personnel from different sectors. We can also provide these project data and evaluated info through our own machine evaluated project strength calculator. This will connect the students and teachers to the software industry. Moreover, it will build a connection between the tech people out there with the non-professional folks.
+
+\section{Requirements document}
+This document will be a brief overview of the overall working structure of this whole project \& a collection of the user needs and the technical stuffs. We'll try to put them altogether over here.
+
+\section{Business or strategic objectives}
+This is a whole new idea in the current circumstances of our country. As there is initially no competitor the business model will follow the \emph{style} curve model\footnote{shown in Figure~\ref{m42}}. Thus the growth of the project will be slow and when people will start using it very frequently the project usage state will come into a stable position.
+\begin{figure}
+\begin{center}
+\resizebox{6in}{!}{\includegraphics*{./img/m42.jpg}}
+\end{center}
+\caption{Style Usage Chart\label{m42}}
+
+\end{figure}
+
+%Figure \ref{fig:Usage} shows a boat.
+\chapter{Glossary}
+\begin{itemize}
+\item \textbf{Java:} An Object Oriented Programming Language.
+\item \textbf{Back-End:} The background process of a web service.
+\item \textbf{Front-End:} The user interface the user will interact with.
+\item \textbf{HTML-5:} Hyper Text Markup Language - 5.
+\item \textbf{CSS:} Cascaded Style Sheet.
+\item \textbf{JavaScript:} An scripting language vastly used in web pages.
+\item \textbf{Amazon Elastic BeanStalk:} Application server by amazon web services.
+\item \textbf{Load balancing:} If the number of user gets too high the server will automatically create it's shadow copy to handle the load.
+\item \textbf{Auto Scaling:} If the uploaded projects gets bigger in size the server storage will increase automatically.
+\item \textbf{Amazon S3 Storage Bucket:} The storage service provided by amazon web services.
+\item \textbf{MySQL:} A light, robust database server system.
+\item \textbf{Oracle Database:} A heavyweight, robust database system.
+\end{itemize}
+\chapter{User requirements definition}
+A user have to create an account to get the services provided by the system. An user can upload any project work. User security and product safety are maintained. An user can browse for any project work or research work, download it and use it for personal need. S/he also can give ratings for the project. Which will be used for the evaluation of the entire work.
+
+\section{Personal Profile}
+The user will have a personal profile to maintain all of his/her project works and to display them as a portfolio in their own profile.
+\section{Project organizer approval} 
+The uploaded project will need a justification from the project organizer for the file to be uploaded from a specific institution.
+\section{Project strength evaluation}
+An specially implemented machine learning algorithm to determine the project strength and viability in the market.
+\section{Privacy} 
+User will be able to cache their private projects to maintain their intellectual property by a special payment system.
+\section{Connection with the tech professionals}
+The projects data and stats will be provided to companies who wish to hire employees for their company. The universities/users will pay to the company to get featured.
+\section{Rating}
+The project will contain a special system for public rating. The project strength might change based on the reviews!
+
+\chapter{System architecture \& model}
+The whole system architecture is described in the Figure~\ref{Requirements}.\\\\\\
+\begin{figure}[ht]
+\begin{center}
+\resizebox{6in}{!}{\includegraphics*{./img/Requirements.jpg}}
+\end{center}
+\caption{Basic System Architechture\label{Requirements}}
+\end{figure}
+
+\chapter{System requirements specification}
+The main functional requirements of the system are it will provide the opportunity to upload and download any public project. An user can make his/her projects private so none can have access over it. The user will have to pay for it. An user can rate other projects from his/her point of view. The nonfunctional requirements of this systems are it provide enough space for storing all projects and research works. Searching complexity is minimized by using efficient algorithms and data structures. The system must be reliable and robust.
+\section{Platform}
+Overall its a web service. Mainly Java EE (Enterprise Edition) frameworks like spring or hibernate will be used in the back-end portion. HTML-5, CSS, JavaScript will be used to handle the front-end of the web project.
+\section{Server}
+\emph{Amazon Elastic BeanStalk} with the robust load balancing \& auto scaling feature might be used as the host server \& we will use the \emph{Amazon S3 Storage Bucket} to store the project works of the users.
+\section{Database}
+\emph{MySQL} Community Edition is a secured and free database server system. We'll primarily use it to store the user \& project data. If the server gets overloaded we may shift to some other kinds of strong database server as \emph{Oracle Database}.
+\section{Payment Getway}
+We'll have to contact national \& international payment getways to serve the users for private repositories. We may use national payment getways like Bkash, DBBL Nexus or internationals like Paypal, Payoneer, VISA, Mastercard etc.
+
+\chapter{System evolution}
+As the concept of the system is to collect huge amount of data from the user, sometimes it may require some change in technical strategy. So for that reason we will develop our system in such a way that it can easily cope up with the change. Well documentation will be maintained so that change in any team or team members will not harm the overall development of the product.
+\section{Incremental development}
+The system will be developed in incremental process. We will study the requirements from the user and adjust the functionality to maintain those requirements.
+\section{Analyze the review}
+We will receive the  reviews from the user and will build some scenario from that reviews and analyze the scenario to adjust the requirements.
+
+\section{Bug fixing}
+Any complained bug will be fixed before releasing the next version \& the users will have an option to report the bugs discovered by them. We'll create a complain section for that thing.
+
+% add other chapters and sections to suit
+\end{document}

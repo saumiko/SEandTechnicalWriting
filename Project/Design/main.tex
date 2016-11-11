@@ -1,0 +1,108 @@
+\documentclass{scrreprt}
+
+\usepackage{textcomp}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+
+
+\setlength{\oddsidemargin}{0.25in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{0in}
+\setlength{\textheight}{8.5in}
+
+
+\usepackage{listings}
+\usepackage{underscore}
+\usepackage{graphicx}
+\usepackage[bookmarks=true]{hyperref}
+\hypersetup{
+    bookmarks=false,    % show bookmarks bar?
+    pdftitle={Software Requirement Specification},    % title
+    pdfauthor={Noymul Islam Chowdhury \& Asif Mohaimen},                     % author
+    pdfsubject={Software Design \& Implementation Document},                        % subject of the document
+    pdfkeywords={TeX, LaTeX, graphics, images}, % list of keywords
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=blue,       % color of internal links
+    citecolor=black,       % color of links to bibliography
+    filecolor=black,        % color of file links
+    urlcolor=purple,        % color of external links
+    linktoc=page            % only page is linked
+}%
+\def\myversion{1.0 }
+\title{%
+\flushright
+\rule{16cm}{5pt}\vskip1cm
+\Huge{SOFTWARE DESIGN \& \\ IMPLEMENTATION}\\
+\vspace{2cm}
+for\\
+\vspace{2cm}
+BD Knowldege Netwrok\\
+\vspace{2cm}
+\LARGE{Release 1.0\\}
+\vspace{4cm}
+Prepared by Team A\\
+\vfill
+\rule{16cm}{5pt}
+}
+\date{}
+\usepackage{hyperref}
+\begin{document}
+\rhead{Team A}
+\lhead{Design \& Implementation}
+\cfoot{\thepage}
+\maketitle
+\tableofcontents
+\chapter*{Preface}
+The detailed information about the implementation \& design of our project "BD Knowledge Network" will be shown in this document. To build a good project we must have to build a specific design architecture for our software. Usually the person to whom we'll be presenting this document is likely to be a non-tech guy. So that we'll try to present the basic abstract design of our project through this document. The system design can be presented through the following perspectives.\\\\
+\begin{itemize}
+\item \textbf{Context view}
+\item \textbf{Structural view}
+\item \textbf{Behavioral view}
+\item \textbf{Interaction view}
+\end{itemize}
+
+Thus the document will be represented according to the needs.
+
+\chapter{Context View}
+Context view is the most abstract view of the system. It normally represents the boundary of the system. In the context view the core functionality of our system is shown. An user can easily understand about the functionality of our project by seeing the context view once. \\\\Looking at the model we can clearly understand what is the functionality of our "BD-Knowledge network" project and how the different components are interacting with each other. We can clearly see its a archiving project having a Login and Signup facility, upload options for projects and thesis works, maintenance facility, project review and analysis etc. So we can easily have a brief idea of the aim of our project by having a glance over context view of our project. It will be very helpful for stakeholders to understand the specification of the system. \\\\ There will be different sign up processes for unique institutions. The teachers \& students will go through different sign up processes. There will be a special premium package for each users to get their projects featured in the homepage to get highlighted by different job offering companies. In the review \& analysis section the project will get a verdict alternatively known as evaluation about the project from the system. \\\\ The basic context diagram is shown in Figure~\ref{CM}
+\begin{figure}
+\begin{center}
+\resizebox{6in}{!}{\includegraphics*{./img/CM.jpg}}
+\end{center} 
+\caption{Context Model for BD Knowledge Network\label{CM}}
+\end{figure}
+\chapter{Interaction View}
+Interaction models are used to show the interactions between different component of the system.
+Normally there are two types of interaction models, one is Use case modeling and the other one is Sequence modeling.
+\begin{itemize}
+\item Sequence Modeling
+\item Use Case Modeling
+\end{itemize}
+In our project we use Sequence diagram to represent activity between certain components of the system. At first the user will go to the index page and see the log in screen. If his/her institution is already registered through the official process he will get a sign up option (for unregistered users). After completing the sign up process he will be able to login to the system. We have selected the case where a student tries to upload a project. However a student needs to go through  approval process to upload his/her project. After the completion of this process the project will be live to people according to the certain privacy level set by the user.
+The whole process is described through Figure~\ref{PM}
+\begin{figure}
+\begin{center}
+\resizebox{6in}{!}{\includegraphics*{./img/PM.jpg}}
+\end{center} 
+\caption{Process Model for BD Knowledge Network\label{PM}}
+\end{figure}
+\\\\Use case modeling is to show role of different component and role  different users. Seeing the use case model of our system we can easily understand the role of a teacher and student. A teacher can add personal project, download any project, approve students projects,analyze the working trend of current world, most popular platform in developing projects etc. A student role is he/she can upload is project, search for projects,rate other projects, check similarity with other projects etc. The institution will provide the students \& the teachers meanwhile the companies will hire their desired employee from our system.
+The detailed use case diagram is shown in Figure~\ref{UC}
+\begin{figure}
+\begin{center}
+\resizebox{6in}{!}{\includegraphics*{./img/UC.jpg}}
+\end{center} 
+\caption{Use Case Model for BD Knowledge Network\label{UC}}
+\end{figure}
+\chapter{Structural View}
+Structural models are used to represent the overall system architecture. It can be static or dynamic. In structural view the structure of the system is briefly discussed. Structural model is usually not understood by customers if they are non tech people. This view helps the developer team to understand the overall structure of the system. They can decide their strategy after understanding the structure of the system.\\\\ Using structural model they can specify their requirements. Different part of the structure can be developed by different teams. So structural view in that case gives a clean understanding of what they have to develop and how they can develop the processes. Structural view helps to understand the most sophisticated part of the system. It also helps to figure the implementation challenge while developing the system.\\\\A static model can be represented by a class diagram. We have also used class diagrams to show the most common classes that will be used in the system. Also we can define the inheritance among the objects of these classes using class diagrams. In our system we have also used class diagrams to show various classes and the relationship among them.
+This Figure~\ref{CD} describes the detailed architectural model of our project. Here, we have two packages named UserData and DatabaseHandle. In UserData we have InstituteDAO class which contains informations about different institutions,studentDAO class contains the information about students, TeacherDAO class contains detail information about teachers and some core functionalities.CompanyDAO class have company details.In DatabaseHandle paackage we have a DatabasePull class which fetch project info, user info etc. from database.We have a DBConnector interface with username and password with getDriver abstruct method. These are used to connect with database. 
+\begin{figure}
+\begin{center}
+\resizebox{6in}{!}{\includegraphics*{./img/CD.jpg}}
+\end{center} 
+\caption{UML Class diagram for BD Knowledge Network\label{CD}}
+\end{figure}
+
+\end{document}

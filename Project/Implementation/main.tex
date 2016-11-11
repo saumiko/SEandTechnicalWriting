@@ -1,0 +1,129 @@
+\documentclass{scrreprt}
+
+\usepackage{textcomp}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+
+
+\setlength{\oddsidemargin}{0.25in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{0in}
+\setlength{\textheight}{8.5in}
+
+
+\usepackage{listings}
+\usepackage{underscore}
+\usepackage{graphicx}
+\usepackage[bookmarks=true]{hyperref}
+\hypersetup{
+    bookmarks=false,    % show bookmarks bar?
+    pdftitle={Software Requirement Specification},    % title
+    pdfauthor={Noymul Islam Chowdhury \& Asif Mohaimen},                     % author
+    pdfsubject={Software Implementation Document},                        % subject of the document
+    pdfkeywords={TeX, LaTeX, graphics, images}, % list of keywords
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=blue,       % color of internal links
+    citecolor=black,       % color of links to bibliography
+    filecolor=black,        % color of file links
+    urlcolor=purple,        % color of external links
+    linktoc=page            % only page is linked
+}%
+\def\myversion{1.0 }
+\title{%
+\flushright
+\rule{16cm}{5pt}\vskip1cm
+\Huge{SOFTWARE IMPLEMENTATION}\\
+\vspace{2cm}
+for\\
+\vspace{2cm}
+BD Knowldege Netwrok\\
+\vspace{2cm}
+\LARGE{Release 1.0\\}
+\vspace{4cm}
+Prepared by Team A\\
+\vfill
+\rule{16cm}{5pt}
+}
+\date{}
+\usepackage{hyperref}
+\begin{document}
+\rhead{Team A}
+\lhead{Implementation}
+\cfoot{\thepage}
+\maketitle
+\tableofcontents
+\chapter*{Preface}
+The detailed information about the Structural Model of our project "BD Knowledge Network" will be shown in this document. To build a good project we must have to build a specific design architecture for our software. In this document we have prepared a new UML Class Diagram than that we've submitted in our previous submission. Moreover this document will include the detailed database design for our project along with the MVC pattern \& Data Flow concept for the search option \& login system. So the basic focus will be on the following items:\\\\
+\begin{itemize}
+\item \textbf{Class \& Objects}
+\item \textbf{Data Flow}
+\item \textbf{Database Design}
+\item \textbf{MVC Architecture}
+\end{itemize}
+
+\chapter{Class \& Objects}
+We can represent a static model using a class diagram. We can also use class diagram to show most common classes that will be  used in our system. Inheritance among the objects of these classes can also be defined using the class diagram. We used class diagram to show various classes and relationship between them. The UML Class Diagram is shown in Figure~\ref{CD}
+\begin{figure}
+\begin{center}
+\resizebox{6in}{!}{\includegraphics*{./img/CD.jpg}}
+\end{center} 
+\caption{UML Class diagram BD Knowledge Network\label{CD}}
+\end{figure}
+The descriptions for different classes are included below: 
+\begin{itemize}
+\item \emph{UserData} Package provides the detailed data of every user in our project. The class descriptions are written below:
+\begin{itemize}
+\item \emph{InstituteDAO} class is the class of the Institute data access object. It contains some attributes common to all. The name of the institution as well as it's ID no. will be stored in the program through this class.
+\item \emph{StudentDAO} will be the data access object for students. Which will contain the username, password, the total number of projects completed by that student \& the total points earned from the ratings \& reviews from his/her projects. The get methods will return the values for every derived variables.
+\item \emph{TeacherDAO} will be the data access object for teachers. Which will contain the username, password \& number of approved projects by the teacher. The get methods will perform the same operations as specified in the \emph{StudentDAO} class.
+\item \emph{CompanyDAO} will be the data access object for companies. Which will contain the company name \& the hire method will perform the hiring operation for that very company.
+\end{itemize}
+\item The \emph{DatabaseHandle} package is used to connect the system with the database of the system. It usually takes help from the JDBC driver class to connect to the Database Management System of the environment.
+\begin{itemize}
+\item The \emph{DatabasePull} class will give the user validation information as well as the personal information specified by the user himself. This will give the project lists as well through the \emph{getProject} method. The updating method will perform the operations for updating the information.
+\item \emph{DBConnector} interface will connect the system to the database.
+\end{itemize}
+\item \emph{ProjectFilesHandle} package will give the project information. This is an updated package from the previous submission.
+\begin{itemize}
+\item The \emph{Project} class will contain the Project Name, Type \& Description for the projects. The \emph{getProject} method will return the project file \& \emph{getProjectInfo} will return the information about it. 
+\end{itemize}
+\end{itemize}
+
+\chapter{Data Flow for the search \& authentication}
+If we  see the data flow diagram for user project search we will see that after getting the login information from the user the system will authenticate the user info and then show him/her a home page.Now if he/she search for any project the system will check for any restrictions then filter the projects and then show the user. After that user can take his/her next step, like downloading the project or rate it or write review etc. The data flow diagram is shown in Figure 2.1
+
+%\begin{figure}[b]
+\begin{center}
+\resizebox{6in}{!}{\includegraphics*{./img/DF.jpg}}
+\end{center} 
+%\caption{Data flow diagram BD Knowledge Network Search Option \label{DF}}
+%\end{figure}
+
+\chapter{Database Design}
+
+\begin{figure}[b]
+\begin{center}
+\resizebox{6in}{!}{\includegraphics*{./img/DB.png}}
+\end{center} 
+\caption{Database Design for BD Knowledge Network\label{DB}}
+\end{figure}
+The main information bank for everything in this project is the MySQL database. We've designed an E-R model for the database management system of our project. This is created using MySQL Workbench tool. It is shown in Figure~\ref{DB}. The contents of the database are described below:
+\begin{itemize}
+\item LoginInfo table contents the username and password of the users. The type attribute indicates the role of the user which will be identified by a integer number. Type 1 users will be students the vital users, Type 2 will be the teachers the validating people \& Type 3 users will be the companies. CompanyID is a foreign key attribute from the company table. ID will be the primary key of this table which will contain an auto incremental value.
+\item Userinfo contains the details about the users, like their name, email,contact etc. an institute id is used as a foreign key to indicate from which institution the user belongs. ID is also a foreign key which refers the ID attribute in the LoginInfo table.
+\item The company table contains the detailed information about the companies. Information like company name, username, password, address are stored in this table.
+\item The institute table only contains the institution name and its address. \emph{InstituteID} is the primary key of this table.
+\item The project entityset contains details about any project. It contains project id, its link, description, rating from users, privacy option, review and tags.Here tags indicates it development platform.
+\end{itemize}
+
+\chapter{Model View Controller Architecture}
+
+\begin{center}
+\resizebox{6in}{!}{\includegraphics*{./img/MVC.jpg}}
+\end{center} 
+We have used \textsc{Model View Controller}(MVC) pattern architecture in our system. It is one of the easiest and popular architectural pattern. This pattern is useful when same data is viewed from different view. 
+
+Any request from user through browser comes to our controller class. Controller then calls the business class.Business class with its appropriate logic access the database, manipulate it and return to controller. Controller then call the view layer to show the user their requested data. The MVC pattern is shown in Figure 4.1
+
+\end{document}
